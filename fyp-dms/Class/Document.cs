@@ -141,7 +141,7 @@ namespace fyp_dms.Class
             DatabaseManager db = new DatabaseManager();
             cmd = new MySqlCommand();
             cmd.CommandText = "SELECT ROW_NUMBER() OVER(ORDER BY documentID) AS No, Document.documentID 'ID', folderID, title, fileName, " +
-                                     "Concat(fileName,Concat('.', type)) AS File, Concat(title,Concat('.', fileType)) AS DisplayName, created_date, " +
+                                     "Concat(fileName,Concat('.', fileType)) AS File, Concat(title,Concat('.', fileType)) AS DisplayName, createdDate, " +
                                      "CASE WHEN LecturerBookmark.lecturerBookmarkID IS NULL THEN 'Add Bookmark' " +
                                                                                   "ELSE 'Cancel Bookmark' " +
                                      "END AS Bookmark " +
@@ -174,14 +174,14 @@ namespace fyp_dms.Class
         {
             DatabaseManager db = new DatabaseManager();
             cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT ROW_NUMBER() OVER(ORDER BY documentID) AS No, Document.documentID 'ID', folderID, title, fileName, " +
-                                     "Concat(fileName,Concat('.', fileType)) AS File, Concat(title,Concat('.', fileType)) AS DisplayName, created_date, " +
+            cmd.CommandText = "SELECT ROW_NUMBER() OVER(ORDER BY Document.documentID) AS No, Document.documentID 'ID', folderID, title, fileName, " +
+                                     "Concat(fileName,Concat('.', type)) AS File, Concat(title,Concat('.', type)) AS DisplayName, createdDate, " +
                                      "CASE WHEN StudentBookmark.studentBookmarkID IS NULL THEN 'Add Bookmark' " +
                                                                                   "ELSE 'Cancel Bookmark' " +
                                      "END AS Bookmark " + 
                               "FROM Document " +
                               "LEFT JOIN StudentBookmark ON StudentBookmark.documentID = Document.documentID " + 
-                              "WHERE folderID='" + folderID + "'";
+                              "WHERE Document.folderID='" + folderID + "'";
             DataSet ds = db.GetDataSet(cmd, "Document");
             return ds;
         }

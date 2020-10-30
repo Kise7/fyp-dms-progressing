@@ -174,27 +174,6 @@ namespace fyp_dms.Web.Studentt
 
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            Session.Clear();
-            Response.Redirect("login.aspx");
-        }
-        protected void BtnHome_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("StudentMain.aspx");
-        }
-        protected void BtnRegisterCourse_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("StudentRegisterCourse.aspx");
-        }
-        protected void BtnProfile_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("StudentProfile.aspx");
-        }
-        protected void BtnCourseRegistered_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("StudentCourseRegistered.aspx");
-        }
         protected void BtnSearch_Click(object sender, EventArgs e)
         {
             TextBox searchparameter = (TextBox)FindControl("txtSearch");

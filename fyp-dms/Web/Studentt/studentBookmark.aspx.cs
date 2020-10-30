@@ -195,7 +195,7 @@ namespace fyp_dms.Web.Studentt
                 }
                 else
                 {
-                    Server.Transfer("StudentMain.aspx");
+                    Server.Transfer("studentBookmark.aspx");
                 }
                 
             }

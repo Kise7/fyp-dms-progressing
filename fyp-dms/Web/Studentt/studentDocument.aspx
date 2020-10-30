@@ -23,13 +23,14 @@
                 </div>
 
                  <div>
-                      <asp:TextBox ID="txtSearch" MaxLength="60" runat="server" CssClass="txtsearch"></asp:TextBox>
-                      <asp:LinkButton ID="LinkButtonSearch" runat="server" Text='<i class="fas fa-search"></i>' onclick="BtnSearch_Click"></asp:LinkButton>
-                      <asp:Label ID="lblSearchResult" Text="" runat="server"></asp:Label>
+                      <asp:TextBox ID="TextBox1" MaxLength="60" runat="server" CssClass="txtsearch"></asp:TextBox>
+                      <asp:LinkButton ID="LinkButton1" runat="server" Text='<i class="fas fa-search"></i>' onclick="BtnSearch_Click"></asp:LinkButton>
+                      <asp:Label ID="Label1" Text="" runat="server"></asp:Label>
                  </div>
 
                  <div class="card-body">
                     <div class="table-responsive">
+
                           <asp:datagrid id="dgStudentDocument" CssClass="Grid table" runat="server" BackColor="White" BorderStyle="Solid" 
 		                  BorderColor="Transparent" AutoGenerateColumns="false" Width="100%" ShowFooter="true"
 		                  OnItemDataBound="dgStudentDocument_ItemDataBound" OnItemCommand="dgStudentDocument_ItemCommand" OnEditCommand="dgEdit_StudentDocument" 
