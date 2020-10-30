@@ -24,6 +24,33 @@ namespace fyp_dms.Web.Studentt
         protected global::System.Web.UI.WebControls.HyperLink HyperLink1;
 
         /// <summary>
+        /// txtSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSearch;
+
+        /// <summary>
+        /// LinkButtonSearch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButtonSearch;
+
+        /// <summary>
+        /// lblSearchResult control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSearchResult;
+
+        /// <summary>
         /// dgStudentMain control.
         /// </summary>
         /// <remarks>

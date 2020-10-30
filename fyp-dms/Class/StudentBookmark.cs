@@ -114,7 +114,7 @@ namespace fyp_dms.Class
         {
             DatabaseManager db = new DatabaseManager();
             cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT *, ROW_NUMBER() OVER(ORDER BY B.studentBookmarkIDID) AS No, B.studentBookmarkID 'ID', Concat(fileName,Concat('.', fileType)) AS File " +
+            cmd.CommandText = "SELECT *, ROW_NUMBER() OVER(ORDER BY B.studentBookmarkIDID) AS No, B.studentBookmarkID 'ID', Concat(fileName,Concat('.', type)) AS File " +
                               "FROM StudentBookmark B " + 
                               "INNER JOIN Document D ON D.documentID=B.documentID " + 
                               "INNER JOIN Folder F ON F.folderID=D.folderID " + 
@@ -128,7 +128,7 @@ namespace fyp_dms.Class
         {
             DatabaseManager db = new DatabaseManager();
             cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT *, ROW_NUMBER() OVER(ORDER BY " + parameter + ") AS No, B.studentBookmarkID 'ID', Concat(fileName,Concat('.',fileType)) AS File " +
+            cmd.CommandText = "SELECT *, ROW_NUMBER() OVER(ORDER BY " + parameter + ") AS No, B.studentBookmarkID 'ID', Concat(fileName,Concat('.',type)) AS File " +
                               "FROM StudentBookmark B " + 
                               "INNER JOIN Document D ON D.documentID=B.documentID " + 
                               "INNER JOIN Folder F ON F.folderID=D.folderID " + 

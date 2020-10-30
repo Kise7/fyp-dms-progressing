@@ -25,7 +25,7 @@
                  <div>
                       <asp:TextBox ID="TextBox1" MaxLength="60" runat="server" CssClass="txtsearch"></asp:TextBox>
                       <asp:LinkButton ID="LinkButton1" runat="server" Text='<i class="fas fa-search"></i>' onclick="BtnSearch_Click"></asp:LinkButton>
-                      <asp:Label ID="Label1" Text="" runat="server"></asp:Label>
+                      <asp:Label ID="lblSearchResult" Text="" runat="server"></asp:Label>
                  </div>
 
                  <div class="card-body">

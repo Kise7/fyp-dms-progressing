@@ -191,14 +191,14 @@ namespace fyp_dms.Class
         {
             DatabaseManager db = new DatabaseManager();
             cmd = new MySqlCommand();
-            cmd.CommandText = "SELECT ROW_NUMBER() OVER(ORDER BY documentID) AS No, Document.documentID 'ID', folderID, title, fileName, " +
-                                     "Concat(filename,Concat('.',type)) AS File, fileName, Concat(Title,Concat('.',FileType)) AS DisplayName, " +
+            cmd.CommandText = "SELECT ROW_NUMBER() OVER(ORDER BY Document.documentID) AS No, Document.documentID 'ID', folderID, title, fileName, " +
+                                     "Concat(filename,Concat('.',type)) AS File, fileName, Concat(Title,Concat('.',type)) AS DisplayName, " +
                                      "created_date, CASE WHEN StudentBookmark.studentBookmarkID IS NULL THEN 'Add Bookmark' " +
                                                                                                        "ELSE 'Cancel Bookmark' " +
                                                     "END AS Bookmark " +
                               "FROM Document " +
                               "LEFT JOIN StudentBookmark ON StudentBookmark.documentID = Document.documentID " +
-                              "WHERE folderID='" + folderID + "' AND title LIKE '%" + parameter + "%'";
+                              "WHERE Document.folderID='" + folderID + "' AND title LIKE '%" + parameter + "%'";
             DataSet ds = db.GetDataSet(cmd, "Document");
             return ds;
         }

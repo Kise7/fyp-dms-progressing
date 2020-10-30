@@ -20,6 +20,12 @@
                     Bookmark
                 </div>
 
+                 <div>
+                      <asp:TextBox ID="txtSearch" MaxLength="60" runat="server" CssClass="txtsearch"></asp:TextBox>
+                      <asp:LinkButton ID="LinkButtonSearch" runat="server" Text='<i class="fas fa-search"></i>' onclick="BtnSearch_Click"></asp:LinkButton>
+                      <asp:Label ID="lblSearchResult" Text="" runat="server"></asp:Label>
+                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                          <asp:datagrid id="dgStudentMain" CssClass="Grid table" BorderColor="Transparent" runat="server"  AutoGenerateColumns="false" ShowFooter="true"
