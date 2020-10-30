@@ -1,0 +1,340 @@
+﻿--
+-- Database    : MySQL
+--
+
+--
+-- Schema Name : document
+--
+
+
+
+--
+-- Table structure for table `admin`
+--
+CREATE TABLE `document`.`admin` (
+  `adminID` INT NOT NULL,
+  `password` VARCHAR(30) CHARACTER SET 'ascii' NOT NULL,
+  `adminName` VARCHAR(45) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`adminID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `faculty`
+--
+CREATE TABLE `document`.`faculty` (
+  `facultyID` INT NOT NULL AUTO_INCREMENT,
+  `facultyName` VARCHAR(30) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`facultyID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `year`
+--
+CREATE TABLE `document`.`year` (
+  `yearID` INT NOT NULL AUTO_INCREMENT,
+  `yearValue` INT NOT NULL,
+  PRIMARY KEY (`intakeID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `intake`
+--
+CREATE TABLE `document`.`intake` (
+  `intakeID` INT NOT NULL AUTO_INCREMENT,
+  `intakeMonth` VARCHAR(15) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`intakeID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `programme`
+--
+CREATE TABLE `document`.`programme` (
+  `programmeID` INT NOT NULL AUTO_INCREMENT,
+  `programmeCode` VARCHAR(10) CHARACTER SET 'ascii' NOT NULL,
+  `facultyID` INT NOT NULL,
+  `programmeName` VARCHAR(60) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`programmeID`),
+  KEY `facultyID` (`facultyID`),
+  CONSTRAINT `programme_FK_1`
+    FOREIGN KEY (`facultyID`)
+    REFERENCES `document`.`faculty` (`facultyID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `course`
+--
+CREATE TABLE `document`.`course` (
+  `courseID` INT NOT NULL AUTO_INCREMENT,
+  `courseCode` VARCHAR(11) CHARACTER SET 'ascii' NOT NULL,
+  `programmeID` INT NOT NULL,
+  `courseName` VARCHAR(60) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`courseID`),
+  KEY `programmeID` (`programmeID`),
+  CONSTRAINT `course_FK_1`
+    FOREIGN KEY (`programmeID`)
+    REFERENCES `document`.`programme` (`programmeID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `courseSection`
+--
+CREATE TABLE `document`.`courseSection` (
+  `courseSectionID` INT NOT NULL AUTO_INCREMENT,
+  `courseID` INT NOT NULL,
+  `sectionNo` INT NOT NULL,
+  PRIMARY KEY (`courseSectionID`),
+  KEY `courseID` (`courseID`),
+  CONSTRAINT `courseSection_FK_1`
+    FOREIGN KEY (`courseID`)
+    REFERENCES `document`.`course` (`courseID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `student`
+--
+CREATE TABLE `document`.`student` (
+  `studentID` VARCHAR(10) CHARACTER SET 'ascii' NOT NULL,
+  `adminID` INT NOT NULL,
+  `yearID` INT NOT NULL,
+  `programmeID` INT NOT NULL,
+  `intakeID` INT NOT NULL,
+  `name` VARCHAR(40) CHARACTER SET 'ascii' NOT NULL,
+  `email` VARCHAR(50) CHARACTER SET 'ascii' NOT NULL,
+  `phoneNo` VARCHAR(20) CHARACTER SET 'ascii' NOT NULL,
+  `password` VARCHAR(30) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`studentID`),
+  KEY `adminID` (`adminID`),
+  KEY `yearID` (`yearID`),
+  KEY `programmeID` (`programmeID`),
+  KEY `intakeID` (`intakeID`),
+  CONSTRAINT `student_FK_1`
+    FOREIGN KEY (`adminID`)
+    REFERENCES `document`.`admin` (`adminID`),
+  CONSTRAINT `student_FK_2`
+    FOREIGN KEY (`yearID`)
+    REFERENCES `document`.`year` (`yearID`),
+  CONSTRAINT `student_FK_3`
+    FOREIGN KEY (`programmeID`)
+    REFERENCES `document`.`programme` (`programmeID`),
+  CONSTRAINT `student_FK_4`
+    FOREIGN KEY (`intakeID`)
+    REFERENCES `document`.`intake` (`intakeID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `lecturer`
+--
+CREATE TABLE `document`.`lecturer` (
+  `lecturerID` INT NOT NULL,
+  `adminID` INT NOT NULL,
+  `password` VARCHAR(30) CHARACTER SET 'ascii' NOT NULL,
+  `name` VARCHAR(40) CHARACTER SET 'ascii' NOT NULL,
+  `phoneNo` VARCHAR(20) CHARACTER SET 'ascii' NOT NULL,
+  `email` VARCHAR(50) CHARACTER SET 'ascii' NOT NULL,
+  `noticeNo` INT DEFAULT NULL,
+  PRIMARY KEY (`lecturerID`),
+  KEY `adminID` (`adminID`),
+  CONSTRAINT `lecturer_FK_1`
+    FOREIGN KEY (`adminID`)
+    REFERENCES `document`.`admin` (`adminID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `workAssign`
+--
+CREATE TABLE `document`.`workAssign` (
+  `workAssignID` INT NOT NULL AUTO_INCREMENT,
+  `courseSectionID` INT NOT NULL,
+  `lecturerID` INT NOT NULL,
+  `position` VARCHAR(30) CHARACTER SET 'ascii' DEFAULT NULL,
+  `status` TINYINT(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`workAssignID`),
+  KEY `courseSectionID` (`courseSectionID`),
+  KEY `lecturerID` (`lecturerID`),
+  CONSTRAINT `workAssign_FK_1`
+    FOREIGN KEY (`courseSectionID`)
+    REFERENCES `document`.`courseSection` (`courseSectionID`),
+  CONSTRAINT `workAssign_FK_2`
+    FOREIGN KEY (`lecturerID`)
+    REFERENCES `document`.`lecturer` (`lecturerID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `folder`
+--
+CREATE TABLE `document`.`folder` (
+  `folderID` INT NOT NULL AUTO_INCREMENT,
+  `lecturerID` INT NOT NULL,
+  `courseSectionID` INT NOT NULL,
+  `folderName` VARCHAR(60) CHARACTER SET 'ascii' DEFAULT NULL,
+  `privilegeID` INT NOT NULL,
+  PRIMARY KEY (`folderID`),
+  KEY `lecturerID` (`lecturerID`),
+  KEY `courseSectionID` (`courseSectionID`),
+  CONSTRAINT `folder_FK_1`
+    FOREIGN KEY (`lecturerID`)
+    REFERENCES `document`.`lecturer` (`lecturerID`),
+  CONSTRAINT `folder_FK_2`
+    FOREIGN KEY (`courseSectionID`)
+    REFERENCES `document`.`courseSection` (`courseSectionID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `document`
+--
+CREATE TABLE `document`.`document` (
+  `documentID` INT NOT NULL AUTO_INCREMENT,
+  `folderID` INT NOT NULL,
+  `title` VARCHAR(60) CHARACTER SET 'ascii' DEFAULT NULL,
+  `fileName` VARCHAR(80) CHARACTER SET 'ascii' DEFAULT NULL,
+  `fileType` VARCHAR(10) CHARACTER SET 'ascii' DEFAULT NULL,
+  `created_date` DATETIME NOT NULL,
+  PRIMARY KEY (`documentID`),
+  KEY `folderID` (`folderID`),
+  CONSTRAINT `document_FK_1`
+  FOREIGN KEY (`folderID`)
+  REFERENCES `document`.`folder` (`folderID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `lecturerBookmark`
+--
+CREATE TABLE `document`.`lecturerBookmark` (
+  `lecturerBookmarkID` INT NOT NULL AUTO_INCREMENT,
+  `lecturerID` INT NOT NULL,
+  `documentID` INT NOT NULL,
+  `tag` VARCHAR(60) CHARACTER SET 'ascii' DEFAULT NULL,
+  PRIMARY KEY (`lecturerBookmarkID`),
+  KEY `lecturerID` (`lecturerID`),
+  KEY `documentID` (`documentID`),
+  CONSTRAINT `lecturerBookmark_FK_1`
+  FOREIGN KEY (`lecturerID`)
+  REFERENCES `document`.`lecturer` (`lecturerID`),
+  CONSTRAINT `lecturerBookmark_FK_2`
+  FOREIGN KEY (`documentID`)
+  REFERENCES `document`.`document` (`documentID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `studentBookmark`
+--
+CREATE TABLE `document`.`studentBookmark` (
+  `studentBookmarkID` INT NOT NULL AUTO_INCREMENT,
+  `studentID` VARCHAR(10) CHARACTER SET 'ascii' NOT NULL,
+  `documentID` INT NOT NULL,
+  `tag` VARCHAR(60) CHARACTER SET 'ascii' DEFAULT NULL,
+  PRIMARY KEY (`studentBookmarkID`),
+  KEY `studentID` (`studentID`),
+  KEY `documentID` (`documentID`),
+  CONSTRAINT `studentBookmark_FK_1`
+  FOREIGN KEY (`studentID`)
+  REFERENCES `document`.`student` (`studentID`),
+  CONSTRAINT `studentBookmark_FK_2`
+  FOREIGN KEY (`documentID`)
+  REFERENCES `document`.`document` (`documentID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `notifications`
+--
+CREATE TABLE `document`.`notifications` (
+  `notificationsID` INT NOT NULL AUTO_INCREMENT,
+  `lecturerID` INT NOT NULL,
+  `courseSectionID` INT NOT NULL,
+  `title` text CHARACTER SET 'ascii' NOT NULL,
+  `message` VARCHAR(7) CHARACTER SET 'ascii' NOT NULL,
+  `created_date` DATETIME NOT NULL,
+  PRIMARY KEY (`notificationsID`),
+  KEY `lecturerID` (`lecturerID`),
+  KEY `courseSectionID` (`courseSectionID`),
+  CONSTRAINT `notifications_FK_1`
+  FOREIGN KEY (`lecturerID`)
+  REFERENCES `document`.`lecturer` (`lecturerID`),
+  CONSTRAINT `notifications_FK_2`
+  FOREIGN KEY (`courseSectionID`)
+  REFERENCES `document`.`courseSection` (`courseSectionID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `workflow`
+--
+CREATE TABLE `document`.`workflow` (
+  `workflowID` INT NOT NULL AUTO_INCREMENT,
+  `lecturerID` INT NOT NULL,
+  `receiptNo` VARCHAR(50) CHARACTER SET 'ascii' NOT NULL,
+  `amount` DECIMAL(8,2) NOT NULL,
+  `claimType` VARCHAR(10) CHARACTER SET 'ascii' NOT NULL,
+  `created_date` DATETIME NOT NULL,
+  `receiptDate` DATE NOT NULL,
+  `hour` VARCHAR(5) CHARACTER SET 'ascii' NOT NULL,
+  `reason` TEXT CHARACTER SET 'ascii' NOT NULL,
+  `adminID` INT DEFAULT NULL,
+  `status` INT DEFAULT NULL,
+  `fileName` VARCHAR(80) CHARACTER SET 'ascii' NOT NULL,
+  `fileType` VARCHAR(10) CHARACTER SET 'ascii' NOT NULL,
+  PRIMARY KEY (`workflowID`),
+  KEY `lecturerID` (`lecturerID`),
+  CONSTRAINT `workflow_FK_1`
+  FOREIGN KEY (`lecturerID`)
+  REFERENCES `document`.`lecturer` (`lecturerID`))
+ENGINE = InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+INSERT INTO `document`.`admin` (`adminID`, `password`, `AdminName`) VALUES ('1001', 'holdDoc123', 'John');
+INSERT INTO `document`.`admin` (`adminID`, `password`, `AdminName`) VALUES ('1002', 'holdDoc123', 'Siti');
+
+--
+-- Dumping data for table `faculty`
+--
+INSERT INTO `document`.`faculty` (`facultyID`, `facultyName`) VALUES ('1', 'FOCS');
+INSERT INTO `document`.`faculty` (`facultyID`, `facultyName`) VALUES ('2', 'FAFB');
+
+--
+-- Dumping data for table `year`
+--
+INSERT INTO `document`.`year` (`yearID`, `yearValue`) VALUES ('1', '2020');
+INSERT INTO `document`.`year` (`yearID`, `yearValue`) VALUES ('2', '2019');
+
+--
+-- Dumping data for table `intake`
+--
+INSERT INTO `document`.`intake` (`intakeID`, `intakeMonth`) VALUES ('1', 'January');
+INSERT INTO `document`.`intake` (`intakeID`, `intakeMonth`) VALUES ('2', 'May');
+
+--
+-- Dumping data for table `programme`
+--
+INSERT INTO `document`.`programme` (`programmeID`, `programmeCode`, `facultyID`, `programmeName`) VALUES ('1', 'WMR', '1', 'Software System Development');
+INSERT INTO `document`.`programme` (`programmeID`, `programmeCode`, `facultyID`, `programmeName`) VALUES ('2', 'WMK', '2', 'Marketing');
+
+--
+-- Dumping data for table `course`
+--
+INSERT INTO `document`.`course` (`courseID`, `courseCode`, `programmeID`, `courseName`) VALUES ('1', 'AACS3094', '1', 'Computer Network');
+INSERT INTO `document`.`course` (`courseID`, `courseCode`, `programmeID`, `courseName`) VALUES ('2', 'BAIT3133', '1', 'Cloud Computing');
+
+--
+-- Dumping data for table `courseSection`
+--
+INSERT INTO `document`.`courseSection` (`courseSectionID`, `CourseID`, `SectionNo`) VALUES(1, 1, 1);
+INSERT INTO `document`.`courseSection` (`courseSectionID`, `CourseID`, `SectionNo`) VALUES(2, 1, 2);
+
+--
+-- Dumping data for table `student`
+--
+INSERT INTO `document`.`student` (`studentID`, `adminID`, `yearID`, `programmeID`, `intakeID`, `name`, `email`, `phoneNo`, `password`) VALUES ('19WMR09583', '1', '2', '2', '2', 'Chua Hui Poh', 'chuahp-wm17@student.tarc.edu.my', '016-2903381', 'holdDoc');
+INSERT INTO `document`.`student` (`studentID`, `adminID`, `yearID`, `programmeID`, `intakeID`, `name`, `email`, `phoneNo`, `password`) VALUES ('19WBR05515', '1', '2', '2', '2', 'Ooi Bee Ling', 'ooibl-wb17@student.tarc.edu.my', '011-1234567', 'holdDoc');
+
+--
+-- Dumping data for table `lecturer`
+--
+INSERT INTO `document`.`lecturer` (`lecturerID`, `adminID`, `password`, `name`, `phoneNo`, `email`, `noticeNo`) VALUES ('3110', '1', 'holdDoc1', 'Peh Guan Soon', '016-3395969', 'pehgs@tarc.edu.my', '0');
+INSERT INTO `document`.`lecturer` (`lecturerID`, `adminID`, `password`, `name`, `phoneNo`, `email`, `noticeNo`) VALUES ('3111', '1', 'holdDoc1', 'Heng Jooi Huang', '011-1111111', 'hengjh@tarc.edu.my', '0');
+
+--
+-- Dumping data for table `workassign`
+--
+INSERT INTO `document`.`workassign` (`workAssignID`, `courseSectionID`, `lecturerID`, `position`, `status`) VALUES ('1', '1', '3110', 'Lecturer', '1');
+INSERT INTO `document`.`workassign` (`workAssignID`, `courseSectionID`, `lecturerID`, `position`, `status`) VALUES ('1', '2', '3110', 'Tutor', '1');
