@@ -226,7 +226,7 @@ namespace fyp_dms.Class
             string studentEmail = GenerateEmail(studentID, name, yearID);
 
             Year year = new Year();
-            string newStudentID = (Convert.ToInt32(year.GetYear(yearID)) % 100) + studentID;
+            string newStudentID = (Convert.ToInt32(year.GetYear(yearID)) / 100) + studentID;
 
             try
             {

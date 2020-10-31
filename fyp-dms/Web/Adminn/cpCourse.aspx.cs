@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace fyp_dms.Web.Adminn
 {
@@ -108,9 +109,24 @@ namespace fyp_dms.Web.Adminn
                 DropDownList txtTempProgrammeID = (DropDownList)e.Item.Cells[1].FindControl("ddlProgrammeIDNew");
                 TextBox txtTempCourseName = (TextBox)e.Item.Cells[2].FindControl("txtCourseNameNew");
 
+                Regex courseRegex = new Regex(@"^[A-Z ]{4}\d{4}$");
+                Match checkCourse = courseRegex.Match(txtTempCourseCode.Text);
+
+                //Validation for name (No digit allowed and only up to 50 characters)
+                Regex nameRegex = new Regex(@"[a-zA-Z ]{1,50}$");
+                Match checkName = nameRegex.Match(txtTempCourseName.Text);
+
                 if (txtTempCourseCode.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the course code!', 'error')</script>'");
+                }
+                else if (!checkCourse.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Course code must start with 4 uppercase characters and 4 numbers', 'error')</script>'");
+                }
+                else if (!checkName.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Course name must consist characters only', 'error')</script>'");
                 }
                 else if (txtTempProgrammeID.Text.Trim() == "")
                 {
@@ -158,10 +174,25 @@ namespace fyp_dms.Web.Adminn
             DropDownList txtTempprogrammeID = (DropDownList)e.Item.Cells[1].FindControl("ddlProgrammeID");
             TextBox txtTempCourseName = (TextBox)e.Item.Cells[2].FindControl("txtCourseName");
 
+            Regex courseRegex = new Regex(@"^[A-Z ]{4}\d{4}$");                    
+            Match checkCourse = courseRegex.Match(txtTempCourseCode.Text);
+
+            //Validation for name (No digit allowed and only up to 50 characters)
+            Regex nameRegex = new Regex(@"[a-zA-Z ]{1,50}$");
+            Match checkName = nameRegex.Match(txtTempCourseName.Text);
+
 
             if (lblTempID.Text.Trim() == "" || txtTempCourseCode.Text.Trim() == "" || txtTempprogrammeID.Text.Trim() == "" || txtTempCourseName.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the course information first!', 'error')</script>'");
+            }
+            else if (!checkCourse.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Course code must start with 4 uppercase characters and 4 numbers', 'error')</script>'");
+            }
+            else if (!checkName.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Course name must consist characters only', 'error')</script>'");
             }
             else
             {

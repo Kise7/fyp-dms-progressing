@@ -114,6 +114,10 @@ namespace fyp_dms.Web.Adminn
                 Regex codeRegex = new Regex(@"[A-Z]{3}$");
                 Match checkCode = codeRegex.Match(txtTempProgrammeCode.Text);
 
+                //Validation for programme (No digit allowed and only up to 50 characters)
+                Regex progRegex = new Regex(@"[a-zA-Z() ]{1,50}$");
+                Match checkProg = progRegex.Match(txtTempProgrammeName.Text);
+
                 if (txtTempProgrammeCode.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the programme code!', 'error')</script>'");
@@ -121,6 +125,10 @@ namespace fyp_dms.Web.Adminn
                 else if (!checkCode.Success)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The programme code must have 3 uppercase characters', 'error')</script>'");
+                }
+                else if (!checkProg.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Programme name can only consist characters or ().', 'error')</script>'");
                 }
                 else if (txtTempFacultyID.Text.Trim() == "")
                 {
@@ -169,6 +177,10 @@ namespace fyp_dms.Web.Adminn
             Regex codeRegex = new Regex(@"[A-Z]{3}$");                          
             Match checkCode = codeRegex.Match(txtTempProgrammeCode.Text);
 
+            //Validation for programme (No digit allowed and only up to 50 characters)
+            Regex progRegex = new Regex(@"[a-zA-Z() ]{1,50}$");
+            Match checkProg = progRegex.Match(txtTempProgrammeName.Text);
+
             if (lblTempID.Text.Trim() == "" || txtTempProgrammeCode.Text.Trim() == "" || txtTempFacultyID.Text.Trim() == "" || txtTempProgrammeName.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the programme information first!', 'error')</script>'");
@@ -176,6 +188,10 @@ namespace fyp_dms.Web.Adminn
             else if (!checkCode.Success)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The programme code must have 3 upppercase characters', 'error')</script>'");
+            }
+            else if (!checkProg.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Programme name can only consist characters or ().', 'error')</script>'");
             }
             else
             {

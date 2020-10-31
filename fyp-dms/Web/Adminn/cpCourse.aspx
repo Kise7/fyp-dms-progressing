@@ -59,14 +59,14 @@
 					            <asp:TemplateColumn HeaderText="Course Code">
                                 <ItemTemplate>
                                 <asp:Label ID="lblID" visible="false" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CourseID") %>'></asp:Label>
-                                <asp:Label ID="lblCourseCode" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CourseCode") %>'></asp:Label>
+                                <asp:Label ID="lblCourseCode" MaxLength="8" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CourseCode") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                 <asp:Label ID="txtID" visible="false" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "CourseID") %>'></asp:Label>
-                                <asp:TextBox ID="txtCourseCode" Runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "CourseCode") %>'></asp:TextBox>                        
+                                <asp:TextBox ID="txtCourseCode" Maxlength="8" Runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "CourseCode") %>'></asp:TextBox>                        
 					            </EditItemTemplate>
                                 <FooterTemplate>	
-                                     <asp:TextBox ID="txtCourseCodeNew" MaxLength="30" runat="server" CssClass="form-control"></asp:TextBox>
+                                     <asp:TextBox ID="txtCourseCodeNew" MaxLength="8" runat="server" CssClass="form-control"></asp:TextBox>
 					            </FooterTemplate>
                                     <ItemStyle Width="20%" />
                                     <HeaderStyle Font-Bold="True" />

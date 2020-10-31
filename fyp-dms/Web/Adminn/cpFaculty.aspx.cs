@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace fyp_dms.Web.Adminn
 {
@@ -86,10 +87,18 @@ namespace fyp_dms.Web.Adminn
             {
                 TextBox txtTempFaculty = (TextBox)e.Item.Cells[0].FindControl("txtFacultyNew");
 
+                //Validation for faculty (No digit allowed and only up to 50 characters)
+                Regex facRegex = new Regex(@"[a-zA-Z() ]{1,50}$");
+                Match checkFac = facRegex.Match(txtTempFaculty.Text);
+
 
                 if (txtTempFaculty.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the faculty name!', 'error')</script>'");
+                }
+                else if (!checkFac.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Faculty name can only consist characters or ().', 'error')</script>'");
                 }
                 else
                 {
@@ -126,9 +135,17 @@ namespace fyp_dms.Web.Adminn
             Label lblTempID = (Label)e.Item.Cells[0].FindControl("txtID");
             TextBox txtTempFaculty = (TextBox)e.Item.Cells[1].FindControl("txtFacultyName");
 
+            //Validation for faculty (No digit allowed and only up to 50 characters)
+            Regex facRegex = new Regex(@"[a-zA-Z() ]{1,50}$");
+            Match checkFac = facRegex.Match(txtTempFaculty.Text);
+
             if (lblTempID.Text.Trim() == "" || txtTempFaculty.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the faculty name!', 'error')</script>'");
+            }
+            else if (!checkFac.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Faculty name can only consist characters or ().', 'error')</script>'");
             }
             else
             {

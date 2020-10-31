@@ -64,7 +64,7 @@
                                 <asp:Label ID="txtStudentID" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "StudentID") %>'></asp:Label>
 					            </EditItemTemplate>--%>
                                 <FooterTemplate>	
-                                    <asp:TextBox ID="txtStudentIDNew" MaxLength="10" runat="server" CssClass="form-control"></asp:TextBox>
+                                    <asp:TextBox ID="txtStudentIDNew" MaxLength="8" runat="server" CssClass="form-control"></asp:TextBox>
 					            </FooterTemplate>
                                     <HeaderStyle Font-Bold="True" />
                                 </asp:TemplateColumn>  	           
