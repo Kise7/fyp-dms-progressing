@@ -64,10 +64,10 @@
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                 <asp:Label ID="txtID" visible="false" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "yearID") %>'></asp:Label>
-                                <asp:TextBox ID="txtYearID" Runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "yearValue") %>'></asp:TextBox>                        
+                                <asp:TextBox ID="txtYearID" MaxLength="4" Runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "yearValue") %>'></asp:TextBox>                        
 					            </EditItemTemplate>
                                 <FooterTemplate>	
-                                     <asp:TextBox ID="txtYearNew" MaxLength="8" runat="server" CssClass="form-control"></asp:TextBox>
+                                     <asp:TextBox ID="txtYearNew" MaxLength="4" runat="server" CssClass="form-control"></asp:TextBox>
 					            </FooterTemplate>
                                     <ItemStyle Width="20%" />
                                     <HeaderStyle Font-Bold="True" />

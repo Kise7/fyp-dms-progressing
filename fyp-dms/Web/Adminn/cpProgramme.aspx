@@ -59,11 +59,11 @@
 					            <asp:TemplateColumn HeaderText="Programme Code">
                                 <ItemTemplate>
                                 <asp:Label ID="lblID" visible="false" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "programmeID") %>'></asp:Label>
-                                <asp:Label ID="lblProgrammeID" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "programmeCode") %>'></asp:Label>
+                                <asp:Label ID="lblProgrammeID" Maxlength="3" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "programmeCode") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                 <asp:Label ID="txtID" visible="false" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "programmeID") %>'></asp:Label>
-                                <asp:TextBox ID="txtProgrammeID" Runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "programmeCode") %>'></asp:TextBox>                        
+                                <asp:TextBox ID="txtProgrammeID" Maxlength="3"  Runat="server" CssClass="form-control" Text='<%# DataBinder.Eval(Container.DataItem, "programmeCode") %>'></asp:TextBox>                        
 					            </EditItemTemplate>
                                 <FooterTemplate>	
                                      <asp:TextBox ID="txtProgrammeNew" MaxLength="30" runat="server" CssClass="form-control"></asp:TextBox>

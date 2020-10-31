@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace fyp_dms.Web.Adminn
 {
@@ -110,9 +111,16 @@ namespace fyp_dms.Web.Adminn
                 DropDownList txtTempFacultyID = (DropDownList)e.Item.Cells[1].FindControl("ddlFacultyNameNew");
                 TextBox txtTempProgrammeName = (TextBox)e.Item.Cells[2].FindControl("txtProgrammeNameNew");
 
+                Regex codeRegex = new Regex(@"[A-Z]{3}$");
+                Match checkCode = codeRegex.Match(txtTempProgrammeCode.Text);
+
                 if (txtTempProgrammeCode.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the programme code!', 'error')</script>'");
+                }
+                else if (!checkCode.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The programme code must have 3 uppercase characters', 'error')</script>'");
                 }
                 else if (txtTempFacultyID.Text.Trim() == "")
                 {
@@ -158,10 +166,16 @@ namespace fyp_dms.Web.Adminn
             DropDownList txtTempFacultyID = (DropDownList)e.Item.Cells[1].FindControl("ddlFacultyName");
             TextBox txtTempProgrammeName = (TextBox)e.Item.Cells[2].FindControl("txtProgrammeName");
 
+            Regex codeRegex = new Regex(@"[A-Z]{3}$");                          
+            Match checkCode = codeRegex.Match(txtTempProgrammeCode.Text);
 
             if (lblTempID.Text.Trim() == "" || txtTempProgrammeCode.Text.Trim() == "" || txtTempFacultyID.Text.Trim() == "" || txtTempProgrammeName.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the programme information first!', 'error')</script>'");
+            }
+            else if (!checkCode.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The programme code must have 3 upppercase characters', 'error')</script>'");
             }
             else
             {

@@ -89,14 +89,34 @@ namespace fyp_dms.Web.Adminn
                 TextBox txtTempLecturerID = (TextBox)e.Item.Cells[0].FindControl("txtLecturerIDNew");
                 TextBox txtTempName = (TextBox)e.Item.Cells[1].FindControl("txtNameNew");
                 TextBox txtTempPhoneNo = (TextBox)e.Item.Cells[2].FindControl("txtPhoneNew");
+                Regex lecregex = new Regex(@"^\d{1,5}$");                                 //only support up to 5 integer
+                Match checklec = lecregex.Match(txtTempLecturerID.Text);
+                Regex nameRegex = new Regex(@"[a-zA-Z ]{1,30}$");                          //Only allow a-z,A-Z and space
+                Match checkname = nameRegex.Match(txtTempName.Text);
+
+                //Validation for name (No digit allowed and only up to 30 characters)
+                Regex phoneRegex = new Regex(@"^(01)[0-9]*[0-9]{8,9}$");
+                Match checkPhone = phoneRegex.Match(txtTempPhoneNo.Text);
 
                 if (txtTempName.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the lecturer name!', 'error')</script>'");
                 }
+                else if (!checklec.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The Lecturer ID is not allowed. Please Lecturer ID is only up to 5 digit number.', 'error')</script>'");
+                }
+                else if (!checkname.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The Lecturer Name is not allowed. Lecturer name is only support character, space and up to 30 character only.', 'error')</script>'");
+                }
                 else if (txtTempLecturerID.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the lecturer ID!', 'error')</script>'");
+                }
+                else if (!checkPhone.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The phone number is not allowed. Phone number must start with 01 and is only support 7 or 8 digits', 'error')</script>'");
                 }
                 else
                 {
@@ -147,6 +167,8 @@ namespace fyp_dms.Web.Adminn
             Label rowLecturerID = (Label)e.Item.Cells[0].FindControl("lblLecturerID");
             TextBox txtName = (TextBox)e.Item.Cells[1].FindControl("txtName");
             TextBox txtTempPhoneNo = (TextBox)e.Item.Cells[2].FindControl("txtPhone");
+            Regex nameRegex = new Regex(@"[a-zA-Z ]{1,30}$");                          //Only allow a-z,A-Z and space
+            Match checkname = nameRegex.Match(txtName.Text);
 
             //Validation for phone (Only 10-11 digit is allowed)
             Regex phoneRegex = new Regex(@"^(01)[0-9]*[0-9]{8,9}$");
@@ -155,6 +177,10 @@ namespace fyp_dms.Web.Adminn
             if (txtName.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the lecturer name first!', 'error')</script>'");
+            }
+            else if (!checkname.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The Admin Name is not allowed. Admin name is only support character, space and up to 30 character only.', 'error')</script>'");
             }
             else if (!checkPhone.Success)
             {

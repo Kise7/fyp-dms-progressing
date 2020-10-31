@@ -91,8 +91,8 @@ namespace fyp_dms.Web.Adminn
                 TextBox txtTempName = (TextBox)e.Item.Cells[1].FindControl("txtNameNew");
                 Regex adminregex = new Regex(@"^\d{1,5}$");                                 //only support up to 5 integer
                 Match checkadmin = adminregex.Match(txtTempAdminID.Text);
-                Regex nameregex = new Regex(@"[a-zA-Z. ]{1,30}$");                          //Only allow a-z,A-Z and . symbol
-                Match checkname = nameregex.Match(txtTempName.Text);
+                Regex nameRegex = new Regex(@"[a-zA-Z ]{1,30}$");                          //Only allow a-z,A-Z and space
+                Match checkname = nameRegex.Match(txtTempName.Text);
 
                 if (!checkadmin.Success)
                 {
@@ -151,8 +151,8 @@ namespace fyp_dms.Web.Adminn
             TextBox rowAdminName = (TextBox)e.Item.Cells[1].FindControl("txtName");
             Regex adminregex = new Regex(@"^\d{1,5}$");                                 //only support up to 5 integer
             Match checkadmin = adminregex.Match(rowAdminID.Text);
-            Regex nameregex = new Regex(@"[a-zA-Z. ]{1,30}$");                          //Only allow a-z,A-Z and . symbol
-            Match checkname = nameregex.Match(rowAdminName.Text);
+            Regex nameRegex = new Regex(@"[a-zA-Z ]{1,30}$");                       //Only allow a-z,A-Z and . symbol
+            Match checkname = nameRegex.Match(rowAdminName.Text);
 
 
             if (rowAdminID.Text.Trim() == "" || rowAdminName.Text.Trim() == "")

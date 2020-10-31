@@ -154,6 +154,13 @@ namespace fyp_dms.Web.Adminn
                 TextBox txtTempName = (TextBox)e.Item.Cells[4].FindControl("txtNameNew");
                 TextBox txtTempPhone = (TextBox)e.Item.Cells[5].FindControl("txtPhoneNew");
 
+                //Validation for name (No digit allowed and only up to 30 characters)
+                Regex nameRegex = new Regex(@"[a-zA-Z ]{1,30}$");
+                Match checkName = nameRegex.Match(txtTempName.Text);
+
+                //Validation for phone (Only 10-11 digit is allowed)
+                Regex phoneRegex = new Regex(@"^(01)[0-9]*[0-9]{8,9}$");
+                Match checkPhone = phoneRegex.Match(txtTempPhone.Text);
 
                 if (txtTempName.Text.Trim() == "")
                 {
@@ -162,6 +169,14 @@ namespace fyp_dms.Web.Adminn
                 else if (txtTempStudentID.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the student ID!', 'error')</script>'");
+                }
+                else if (!checkName.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The Admin Name is not allowed. Admin name is only support character, space and up to 30 characters only.', 'error')</script>'");
+                }
+                else if (!checkPhone.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The phone number is not allowed. Phone number must start with 01 and is only support 7 or 8 digits', 'error')</script>'");
                 }
                 else
                 {
@@ -233,7 +248,7 @@ namespace fyp_dms.Web.Adminn
             }
             else if (!checkPhone.Success)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The phone number is not allowed. Phone number is only support 7 or 8 digits', 'error')</script>'");
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'The phone number is not allowed. Phone number must start with 01 and is only support 7 or 8 digits', 'error')</script>'");
             }
             else
             {

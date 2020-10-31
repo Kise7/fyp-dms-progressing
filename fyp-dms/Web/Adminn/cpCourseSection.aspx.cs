@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace fyp_dms.Web.Adminn
 {
@@ -108,9 +109,16 @@ namespace fyp_dms.Web.Adminn
                 DropDownList txtTempCourseCode = (DropDownList)e.Item.Cells[0].FindControl("ddlCourseCodeNew");
                 TextBox txtTempSectionNo = (TextBox)e.Item.Cells[1].FindControl("txtSectionNoNew");
 
+                Regex sectionRegex = new Regex(@"^\d{1,5}$");
+                Match checkSection = sectionRegex.Match(txtTempSectionNo.Text);
+
                 if (txtTempCourseCode.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the course code!', 'error')</script>'");
+                }
+                else if (!checkSection.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Section number must be digit only', 'error')</script>'");
                 }
                 else if (txtTempSectionNo.Text.Trim() == "")
                 {
@@ -153,10 +161,17 @@ namespace fyp_dms.Web.Adminn
             DropDownList txtTempCourseCode = (DropDownList)e.Item.Cells[0].FindControl("ddlCourseCode");
             TextBox txtTempSectionNo = (TextBox)e.Item.Cells[1].FindControl("txtSectionNo");
 
+            Regex sectionRegex = new Regex(@"^\d{1,5}$");                     
+            Match checkSection = sectionRegex.Match(txtTempSectionNo.Text);
+
 
             if (lblTempID.Text.Trim() == "" || txtTempCourseCode.Text.Trim() == "" || txtTempSectionNo.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the course section information first!', 'error')</script>'");
+            }
+            else if (!checkSection.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Section number must be digit only', 'error')</script>'");
             }
             else
             {

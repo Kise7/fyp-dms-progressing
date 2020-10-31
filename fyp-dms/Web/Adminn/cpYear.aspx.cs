@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
 
 namespace fyp_dms.Web.Adminn
 {
@@ -83,10 +84,17 @@ namespace fyp_dms.Web.Adminn
             {
                 TextBox txtTempYear = (TextBox)e.Item.Cells[0].FindControl("txtYearNew");
 
+                //Validation for year 
+                Regex yearRegex = new Regex(@"^\d{4}$");
+                Match checkYear = yearRegex.Match(txtTempYear.Text);
 
                 if (txtTempYear.Text.Trim() == "")
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the Year!', 'error')</script>'");
+                }
+                else if (!checkYear.Success)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Year must be 4 digit number!', 'error')</script>'");
                 }
                 else
                 {
@@ -123,9 +131,17 @@ namespace fyp_dms.Web.Adminn
             Label lblTempID = (Label)e.Item.Cells[0].FindControl("txtID");
             TextBox txtTempYear = (TextBox)e.Item.Cells[1].FindControl("txtYearID");
 
+            //Validation for year 
+            Regex yearRegex = new Regex(@"^\d{1,4}$");
+            Match checkYear = yearRegex.Match(txtTempYear.Text);
+
             if (lblTempID.Text.Trim() == "" || txtTempYear.Text.Trim() == "")
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Please fill in the year first!', 'error')</script>'");
+            }
+            else if (!checkYear.Success)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "Error", "<script type='text/javascript'>swal('Error!', 'Year must be 4 digit number!', 'error')</script>'");
             }
             else
             {

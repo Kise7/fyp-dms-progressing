@@ -94,10 +94,10 @@
 
                                 <asp:TemplateColumn HeaderText="Phone No">
                                 <ItemTemplate>
-                                    <asp:Label ID="lblPhone" Runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PhoneNo") %>'></asp:Label>
+                                    <asp:Label ID="lblPhone" Runat="server" Maxlength="11" Text='<%# DataBinder.Eval(Container.DataItem, "PhoneNo") %>'></asp:Label>
                                 </ItemTemplate>
                                 <EditItemTemplate>     
-						            <asp:TextBox ID="txtPhone" runat="server" Text='<%# DataBinder.Eval(Container.DataItem, "PhoneNo") %>' CssClass="form-control"></asp:TextBox>
+						            <asp:TextBox ID="txtPhone" runat="server" Maxlength="11" Text='<%# DataBinder.Eval(Container.DataItem, "PhoneNo") %>' CssClass="form-control"></asp:TextBox>
 					            </EditItemTemplate>
                                 <FooterTemplate>
 						            <asp:TextBox ID="txtPhoneNew" MaxLength="11" runat="server" CssClass="form-control"></asp:TextBox>
